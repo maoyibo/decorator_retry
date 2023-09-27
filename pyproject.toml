@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "decorator-retry"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Yibo Mao <yibo.mao@genscript.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 
 
 [[tool.poetry.source]]

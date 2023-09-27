@@ -1,15 +1,9 @@
 import logging
 import time
 from typing import Callable, TypeVar, Type
-
-import sys
-if sys.version_info >= (3, 10):  # pragma: no cover
-    from typing import ParamSpec
-else:  # pragma: no cover
-    from typing_extensions import ParamSpec
+from typing import ParamSpec
 
 ET = TypeVar('ET', bound=Type[Exception])
-E = TypeVar('E', bound=Exception)
 P = ParamSpec('P')
 R = TypeVar('R')
 OF = Callable[P, R]
@@ -17,12 +11,12 @@ DF = Callable[P, None | R]
 
 
 def retry(*exceptions: list[ET],
-                   retry: bool = True,
-                   attempts: int = 3,
-                   wait: float = 1,
-                   reraise: bool = True,
-                   logger: Callable = logging.debug
-                   ) -> Callable[[OF], DF]:
+          retry: bool = True,
+          attempts: int = 3,
+          wait: float = 1,
+          reraise: bool = True,
+          logger: Callable = logging.debug
+          ) -> Callable[[OF], DF]:
     """if retry is True , retry when the decorated function throws the *SPECIFIED* exceptions。
 if retry is False , retry when the decorated function throws the *UNSPECIFIED* exceptions。
     """
@@ -38,7 +32,7 @@ if retry is False , retry when the decorated function throws the *UNSPECIFIED* e
                 try:
                     return func(*args, **kwargs)
                 except Exception as err:
-                    except_occurs=err
+                    except_occurs = err
                     err_type = type(except_occurs)
                     if retry == True and err_type in exceptions:
                         logger(f"{func.__name__} raise {err_type.__name__} "
