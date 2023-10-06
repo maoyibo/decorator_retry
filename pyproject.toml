@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "decorator-retry"
-version = "0.1.2"
+version = "0.1.3"
 description = ""
 authors = ["Yibo Mao <yibo.mao@genscript.com>"]
 readme = "README.md"
