@@ -1,57 +1,43 @@
 # A simple decorator for retry functions  
 
+```python
+@retry(ValueError, KeyError,
+         retry = True, 
+         attempts = 3,
+         wait = 1,
+         reraise = True,
+         logger = logging.debug
+         )
+def func():
+   pass
 ```
-In [1]: import logging
-   ...: from decorator_retry import retry
-   ...: 
+## Decorator parameters
 
-In [2]: @retry(ValueError, KeyError, retry=True, attempts=3, wait=1.5, reraise=True, logger=logging.warning)
-   ...: def foo():
-   ...:     raise ValueError("Raise")
-   ...: 
+### exceptions
 
-In [3]: foo()
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo will reraise ValueError.
----------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-...
-ValueError: Raise
+*SPECIFIED* exception types.
 
-In [4]: @retry(ValueError, KeyError, retry=False, attempts=3, wait=1.5, reraise=True, logger=logging.warning)
-   ...: def foo():
-   ...:     raise ValueError("Raise")
-   ...: 
+### retry
 
-In [5]: foo()
-WARNING:root:foo raise ValueError, will not retry.
-WARNING:root:foo will reraise ValueError.
----------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-...
-ValueError: Raise
+if retry is True , retry when the decorated function throws the *SPECIFIED* exceptions.   
+if retry is False , retry when the decorated function throws the *UNSPECIFIED* exceptions.   
+Default is True.
 
-In [6]: @retry(ValueError, KeyError, retry=True, attempts=3, wait=1.5, reraise=False, logger=logging.warning)
-   ...: def foo():
-   ...:     raise ValueError("Raise")
-   ...: 
+### attempts
 
-In [7]: foo()
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo raise ValueError in specified list, will try again.
-WARNING:root:foo will not reraise ValueError.
+The number of retries attempted. Default is 3.  
 
-In [8]: @retry(ValueError, KeyError, retry=False, attempts=3, wait=1.5, reraise=False, logger=logging.warning)
-   ...: def foo():
-   ...:     raise KeyError("Raise")
-   ...: 
+### wait
 
-In [9]: foo()
-WARNING:root:foo raise KeyError, will not retry.
-WARNING:root:foo will not reraise KeyError.
+The wait interval between retries (second).   
+Default is 1 second.
 
-```
+### reraise
 
+If reraise is True, when an exception is thrown by the decorated function, that exception will be rethrown. If raraise is False, then None is returned instead.   
+Default is True.
+
+### logger
+
+The logger function will be used when the decorated function raise exception.
+Default is logging.warning.

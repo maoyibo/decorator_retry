@@ -16,8 +16,8 @@ def retry(*exceptions: Type[Exception],
           reraise: bool = True,
           logger: Callable = logging.debug
           ) -> Callable[[OF], DF]:
-    """if retry is True , retry when the decorated function throws the *SPECIFIED* exceptions。
-if retry is False , retry when the decorated function throws the *UNSPECIFIED* exceptions。
+    """if retry is True , retry when the decorated function throws the *SPECIFIED* exceptions.
+if retry is False , retry when the decorated function throws the *UNSPECIFIED* exceptions.
     """
     for exc in exceptions:
         assert issubclass(
