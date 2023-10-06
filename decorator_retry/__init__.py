@@ -3,14 +3,13 @@ import time
 from typing import Callable, TypeVar, Type
 from typing import ParamSpec
 
-ET = TypeVar('ET', bound=Type[Exception])
 P = ParamSpec('P')
 R = TypeVar('R')
 OF = Callable[P, R]
 DF = Callable[P, None | R]
 
 
-def retry(*exceptions: list[ET],
+def retry(*exceptions: Type[Exception],
           retry: bool = True,
           attempts: int = 3,
           wait: float = 1,
@@ -28,7 +27,7 @@ if retry is False , retry when the decorated function throws the *UNSPECIFIED* e
         # @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs):
             except_occurs: None | Exception = None
-            err_type:None|type[Exception]=None
+            err_type: None | type[Exception] = None
             for _ in range(attempts):
                 except_occurs = None
                 try:
