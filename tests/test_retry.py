@@ -107,3 +107,15 @@ def no_retry_no_reraise_unexpect():
 
 def test_no_retry_no_reraise_unexpect():
     assert no_retry_no_reraise_unexpect() ==None
+
+
+class ObjedtMethod():
+    @retry(ValueError, reraise=True, wait=0.5,logger=logging.warning)
+    def raise_error(self):
+        raise ValueError("Raise Test")
+    
+def test_object_method():
+    obj=ObjedtMethod()
+    with pytest.raises(ValueError) as exc_info:
+        obj.raise_error()
+    assert str(exc_info.value) == "Raise Test"

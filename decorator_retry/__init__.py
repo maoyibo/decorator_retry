@@ -1,7 +1,14 @@
-import logging
+import sys
 import time
+import logging
 from typing import Callable, TypeVar, Type
 from typing import ParamSpec
+
+if sys.version_info >= (3, 10):  # pragma: no cover
+    from typing import ParamSpec
+else:  # pragma: no cover
+    from typing_extensions import ParamSpec
+
 
 P = ParamSpec('P')
 R = TypeVar('R')
