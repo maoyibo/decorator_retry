@@ -27,8 +27,8 @@ def retry(*exceptions: Type[Exception],
 if retry is False , retry when the decorated function throws the *UNSPECIFIED* exceptions.
     """
     for exc in exceptions:
-        assert issubclass(
-            exc, Exception), f"{exc} is not a Exception type."  # type:ignore
+        assert issubclass(exc, Exception), \
+            f"{exc} is not a Exception type."  # type:ignore
 
     def decorator(func: OF) -> DF:
         # @functools.wraps(func)
