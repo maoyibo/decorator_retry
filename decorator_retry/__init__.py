@@ -1,8 +1,7 @@
 import sys
 import time
 import logging
-from typing import Callable, TypeVar, Type
-from typing import ParamSpec
+from typing import Callable, TypeVar, Type, Optional
 
 if sys.version_info >= (3, 10):  # pragma: no cover
     from typing import ParamSpec
@@ -13,7 +12,7 @@ else:  # pragma: no cover
 P = ParamSpec('P')
 R = TypeVar('R')
 OF = Callable[P, R]
-DF = Callable[P, None | R]
+DF = Callable[P, Optional[R]]
 
 
 def retry(*exceptions: Type[Exception],
